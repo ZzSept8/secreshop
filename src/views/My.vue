@@ -10,7 +10,7 @@
       <div class="my-back">
         <!-- 头像 -->
 
-        <img src="http://static.dota2.com.cn/shop/images/user.png" alt="" />
+        <img :src='userheade' alt="" />
 
         <!-- 个人信息 -->
 
@@ -120,7 +120,8 @@ export default {
   },
   data() {
     return {
-      my:''
+      my:'',
+      userheade:''
     };
   },
   beforeCreate() {
@@ -132,12 +133,22 @@ export default {
         let phone=this.userlist[0].phone
       this.my= phone.substr(0,3) + "****" + phone.substr(7)
       }
-      
+      this.user()
   },
   methods: {
     onClickLeft(){
       this.$router.push('/')
     },
+    user(){
+       this.userlist.forEach((item) => {
+        this.userid = item.id;
+      });
+      this.axios.get('/user',{ params: { userid: this.userid } }).then(res=>{
+        this.userheade=res.data.result[0].img
+        console.log(res.data.result)
+      })
+    },
+
     logout(){
       this.$store.commit('logout')
       this.$router.push('/');
@@ -170,6 +181,8 @@ export default {
   left: 22px;
   top: 27px;
   width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 .my-phone {
   color: #fff;

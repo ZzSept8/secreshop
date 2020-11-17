@@ -22,11 +22,9 @@
     <div v-for="(item, k) of goods" :key="k">
       <!-- 商品详情轮博 -->
       <div>
-        <van-swipe @change="onChange"  >
-          <van-swipe-item v-for="(i,k) of swipe" :key="k"
-            ><img
-               v-lazy="i.img"
-              alt=""
+        <van-swipe @change="onChange">
+          <van-swipe-item v-for="(i, k) of swipe" :key="k"
+            ><img v-lazy="i.img" alt=""
           /></van-swipe-item>
           <template #indicator>
             <div class="custom-indicator">{{ current + 1 }}/4</div>
@@ -47,7 +45,7 @@
     <!-- 商品结束 -->
 
     <!-- 选择地址 -->
-    <van-cell is-link  @click="showPopup"
+    <van-cell is-link @click="showPopup"
       >运输: <span>上海</span>至
       <span>北京</span>
     </van-cell>
@@ -74,7 +72,7 @@
     <!-- 商品详情 -->
     <div class="goods-details">
       <p class="datalis">详情</p>
-      <p v-for="(z,k) of goods" :key="k">
+      <p v-for="(z, k) of goods" :key="k">
         <img :src="z.details" alt="" />
       </p>
     </div>
@@ -112,7 +110,7 @@ import {
   Popup,
   Area,
   Stepper,
-  Lazyload
+  Lazyload,
 } from "vant";
 Vue.use(Stepper);
 Vue.use(Area);
@@ -127,7 +125,7 @@ Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Lazyload);
 export default {
-   computed: {
+  computed: {
     ...mapState(["cartGoods", "isLogined", "userlist"]),
   },
   data() {
@@ -139,9 +137,9 @@ export default {
       sum: 1,
       current: 0,
       area: [],
-      arr:[],
-      cart:{},
-      userid:0,
+      arr: [],
+      cart: {},
+      userid: 0,
       show: false,
       areaList: {
         province_list: {
@@ -455,42 +453,41 @@ export default {
       console.log(this.area);
     },
     addCart() {
-      if (this.isLogined==0) {
+      if (this.isLogined == 0) {
         let Cart = {
-        id: this.goods[0].id,
-        price: this.goods[0].price.toFixed(2),
-        classfiy_img: this.goods[0].classfiy_img,
-        title: this.goods[0].title,
-        sum: this.sum,
-      };
-      this.$store.commit("productGoods", Cart);
-      this.$router.push("/cart");
-      }else{
-         this.userlist.forEach((item) => {
-         this.userid = item.id;
-      });
-      this.arr=[]
-      let obj={
-            gid:this.goods[0].id,
-            sum:this.sum
-          }
-          this.arr.push(obj)
-        this.cart={
-          userid:this.userid,
-          arr:this.arr
-        }
-        this.axios.post('/Addcart',this.cart).then(res=>{
+          id: this.goods[0].id,
+          price: this.goods[0].price.toFixed(2),
+          classfiy_img: this.goods[0].classfiy_img,
+          title: this.goods[0].title,
+          sum: this.sum,
+        };
+        this.$store.commit("productGoods", Cart);
+        this.$router.push("/cart");
+      } else {
+        this.userlist.forEach((item) => {
+          this.userid = item.id;
+        });
+        this.arr = [];
+        let obj = {
+          gid: this.goods[0].id,
+          sum: this.sum,
+        };
+        this.arr.push(obj);
+        this.cart = {
+          userid: this.userid,
+          arr: this.arr,
+        };
+        this.axios.post("/Addcart", this.cart).then((res) => {
           ///
-
-        })
+        });
+        this.$router.push("/cart");
       }
-      
     },
     //更具id查询商品的轮播图
     listswipe() {
-            let id = this.$route.params.id;
-      this.axios.get("/productswipe",{ params: { id: id } }).then((res) => {
-      this.swipe=res.data.results;
+      let id = this.$route.params.id;
+      this.axios.get("/productswipe", { params: { id: id } }).then((res) => {
+        this.swipe = res.data.results;
       });
     },
     product() {
@@ -499,22 +496,19 @@ export default {
         this.goods = res.data.results;
       });
     },
-    goBack(){
-     this.$router.go(-1)
-    }
-
+    goBack() {
+      this.$router.go(-1);
+    },
   },
 
   mounted() {
-    
     this.listswipe();
     this.product();
-   
   },
 };
 </script>
 <style  scoped>
-*{
+* {
   margin: 0;
   padding: 0;
 }

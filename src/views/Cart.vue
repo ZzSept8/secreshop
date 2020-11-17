@@ -131,6 +131,9 @@ export default {
       this.getSum();
     },
   },
+   beforeCreate() {
+    document.querySelector("body").setAttribute("style", "background:#fff;");
+  },
   mounted() {
     if (this.isLogined == 0) {
       // 没有登录的时候 从浏览器缓存那数据
