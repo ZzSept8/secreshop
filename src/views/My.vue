@@ -89,8 +89,15 @@
         is-link
         to="/"
       />
+      <van-cell
+        icon="http://static.dota2.com.cn/shop/mobile/images/icon_faq.png"
+        title="更改个人信息"
+        is-link
+        to="/update"
+      />
     </div>
     <!-- 订单信息开始 -->
+    
     <!-- 底部组件 -->
     <My-footer></My-footer>
     <!-- 底部组件结束 -->

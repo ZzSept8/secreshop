@@ -19,6 +19,31 @@ Vue.use(Mint);
 Vue.config.productionTip = false
 Vue.component("MyFooter", MyFooter);
 
+axios.interceptors.request.use(
+  config=>{
+    if (localStorage.getItem('userToken')){
+      console.log()
+      config.headers.Authorization = localStorage.getItem('userToken')
+    }
+    return config;
+  },
+  err=>{
+    return Promise.reject(err)
+  }
+)
+axios.interceptors.response.use(
+  response=> {
+    if (response.data.status==0) {
+        router.replace('/login');
+        console.log('token 过期')
+    }
+    return response;
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
 new Vue({
   router,
   store,

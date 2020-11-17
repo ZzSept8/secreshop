@@ -170,9 +170,11 @@ export default {
                 this.axios.post('/login',this.qs.stringify(obj)).then(res=>{
                     //如果用户登录成功
                     if(res.data.code == 1){
+                       localStorage.setItem('userToken',JSON.stringify(res.data.token));
                     //提交Mutations
                       this.val=[]
-                    for (let i = 0; i < this.cartGoods.length; i++) {
+                      if ( this.cartGoods.length>0) {
+                        for (let i = 0; i < this.cartGoods.length; i++) {
                         let gid=this.cartGoods[i].id;
                         let sum=this.cartGoods[i].sum;
                         let cart={
@@ -191,6 +193,8 @@ export default {
                     })
                     localStorage.setItem('cartGoods',JSON.stringify([]));
                     this.$store.commit('logined',res.data.results);
+                      }
+                    
                     this.$router.push('/my');
                    location.reload()
                     } 

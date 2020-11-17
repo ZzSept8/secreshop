@@ -8,6 +8,7 @@ import Cart from '../views/Cart.vue'
 import My from '../views/My.vue'
 import Product from '../views/Product.vue'
 import List from '../views/List.vue'
+import Update from '../views/Update.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,10 @@ const routes = [
   {
     path:'/login',
     component:Login
+  },
+  {
+    path: '/update',
+    component: Update
   },
   {
     path:'/list',

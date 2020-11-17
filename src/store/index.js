@@ -10,7 +10,7 @@ export default new Vuex.Store({
     username: localStorage.getItem('username') ? localStorage.getItem('username') : '未登录',
     userlist:localStorage.getItem('userlist') ? JSON.parse(localStorage.getItem('userlist')) : [],
     cartGoods:localStorage.getItem('cartGoods') ? JSON.parse(localStorage.getItem('cartGoods')):[],
-    user:[]
+    userToken: localStorage.getItem('userToken') ? localStorage.getItem('userToken') :''
   },
   mutations: {
     //登录

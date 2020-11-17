@@ -459,7 +459,7 @@ export default {
         let Cart = {
         id: this.goods[0].id,
         price: this.goods[0].price.toFixed(2),
-        img: this.goods[0].classfiy_img,
+        classfiy_img: this.goods[0].classfiy_img,
         title: this.goods[0].title,
         sum: this.sum,
       };
